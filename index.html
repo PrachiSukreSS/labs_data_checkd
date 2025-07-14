@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab & Classroom Availability System</title>
+    <link rel="stylesheet" href="src/styles/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-university"></i>
+                <span>Lab Availability System</span>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn active" data-page="home">
+                    <i class="fas fa-home"></i> Home
+                </button>
+                <button class="nav-btn" data-page="admin" id="adminBtn">
+                    <i class="fas fa-cog"></i> Admin
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- Home Page -->
+        <div id="homePage" class="page active">
+            <div class="hero-section">
+                <h1>Lab & Classroom Availability</h1>
+                <p>Check real-time availability of labs and classrooms</p>
+            </div>
+
+            <div class="search-container">
+                <div class="search-grid">
+                    <!-- Location Availability Check -->
+                    <div class="search-card">
+                        <h3><i class="fas fa-map-marker-alt"></i> Check Location Availability</h3>
+                        <form id="availabilityForm">
+                            <select id="locationSelect" required>
+                                <option value="">Select Location</option>
+                            </select>
+                            <select id="daySelect" required>
+                                <option value="">Select Day</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                            </select>
+                            <select id="timeSlotSelect" required>
+                                <option value="">Select Time Slot</option>
+                                <option value="9:00-10:00">9:00-10:00</option>
+                                <option value="10:00-11:00">10:00-11:00</option>
+                                <option value="11:00-12:00">11:00-12:00</option>
+                                <option value="12:00-13:00">12:00-13:00</option>
+                                <option value="14:00-15:00">14:00-15:00</option>
+                                <option value="15:00-16:00">15:00-16:00</option>
+                                <option value="16:00-17:00">16:00-17:00</option>
+                            </select>
+                            <button type="submit">Check Availability</button>
+                        </form>
+                        <div id="availabilityResult" class="result"></div>
+                    </div>
+
+                    <!-- Capacity Search -->
+                    <div class="search-card">
+                        <h3><i class="fas fa-users"></i> Find by Capacity</h3>
+                        <form id="capacityForm">
+                            <input type="number" id="capacityInput" placeholder="Minimum capacity" min="1" required>
+                            <button type="submit">Find Locations</button>
+                        </form>
+                        <div id="capacityResult" class="result"></div>
+                    </div>
+
+                    <!-- Faculty Search -->
+                    <div class="search-card">
+                        <h3><i class="fas fa-user-tie"></i> Search by Faculty</h3>
+                        <form id="facultyForm">
+                            <input type="text" id="facultyInput" placeholder="Faculty name" required>
+                            <button type="submit">Search</button>
+                        </form>
+                        <div id="facultyResult" class="result"></div>
+                    </div>
+
+                    <!-- Day/Time Filters -->
+                    <div class="search-card">
+                        <h3><i class="fas fa-calendar"></i> Filter by Day/Time</h3>
+                        <div class="filter-buttons">
+                            <select id="dayFilter">
+                                <option value="">Filter by Day</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                            </select>
+                            <select id="timeFilter">
+                                <option value="">Filter by Time</option>
+                                <option value="9:00-10:00">9:00-10:00</option>
+                                <option value="10:00-11:00">10:00-11:00</option>
+                                <option value="11:00-12:00">11:00-12:00</option>
+                                <option value="12:00-13:00">12:00-13:00</option>
+                                <option value="14:00-15:00">14:00-15:00</option>
+                                <option value="15:00-16:00">15:00-16:00</option>
+                                <option value="16:00-17:00">16:00-17:00</option>
+                            </select>
+                        </div>
+                        <div id="filterResult" class="result"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timetable Display -->
+            <div class="timetable-section">
+                <h2>Current Timetable</h2>
+                <button id="loadTimetable" class="load-btn">Load Full Timetable</button>
+                <div id="timetableContainer" class="timetable-container"></div>
+            </div>
+        </div>
+
+        <!-- Admin Page -->
+        <div id="adminPage" class="page">
+            <div class="admin-header">
+                <h1>Admin Panel</h1>
+                <div class="admin-auth" id="adminAuth">
+                    <input type="password" id="adminPassword" placeholder="Enter admin password">
+                    <button id="loginBtn">Login</button>
+                </div>
+                <div class="admin-controls" id="adminControls" style="display: none;">
+                    <button id="logoutBtn">Logout</button>
+                </div>
+            </div>
+
+            <div id="adminContent" class="admin-content" style="display: none;">
+                <!-- Add New Entry -->
+                <div class="admin-section">
+                    <h3>Add New Entry</h3>
+                    <form id="addEntryForm" class="admin-form">
+                        <div class="form-row">
+                            <input type="text" id="addLocation" placeholder="Location" required>
+                            <select id="addDay" required>
+                                <option value="">Select Day</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <select id="addTimeSlot" required>
+                                <option value="">Select Time Slot</option>
+                                <option value="9:00-10:00">9:00-10:00</option>
+                                <option value="10:00-11:00">10:00-11:00</option>
+                                <option value="11:00-12:00">11:00-12:00</option>
+                                <option value="12:00-13:00">12:00-13:00</option>
+                                <option value="14:00-15:00">14:00-15:00</option>
+                                <option value="15:00-16:00">15:00-16:00</option>
+                                <option value="16:00-17:00">16:00-17:00</option>
+                            </select>
+                            <input type="text" id="addFaculty" placeholder="Faculty (or 'Free')" required>
+                        </div>
+                        <div class="form-row">
+                            <input type="text" id="addBatch" placeholder="Batch (optional)">
+                            <input type="number" id="addCapacity" placeholder="Capacity" min="1" required>
+                        </div>
+                        <button type="submit">Add Entry</button>
+                    </form>
+                </div>
+
+                <!-- Manage Existing Data -->
+                <div class="admin-section">
+                    <h3>Manage Data</h3>
+                    <button id="loadDataBtn" class="load-btn">Load All Data</button>
+                    <div id="dataTable" class="data-table"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="src/js/main.js"></script>
+</body>
+</html>
