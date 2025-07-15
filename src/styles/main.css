@@ -230,13 +230,14 @@ body::before {
 .search-card {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
-    padding: 2.5rem;
+    padding: 1.5rem;
     border-radius: 24px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
     overflow: hidden;
+    max-width: 100%;
 }
 
 .search-card::before {
@@ -257,24 +258,24 @@ body::before {
 
 .search-card h3 {
     color: #667eea;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 700;
 }
 
 .search-card h3 i {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     background: linear-gradient(135deg, #667eea, #764ba2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     padding: 0.5rem;
     background-color: rgba(102, 126, 234, 0.1);
     border-radius: 12px;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -282,8 +283,8 @@ body::before {
 
 .card-description {
     color: #666;
-    font-size: 0.95rem;
-    margin-bottom: 2rem;
+    font-size: 0.85rem;
+    margin-bottom: 1.2rem;
     line-height: 1.6;
     font-weight: 400;
 }
@@ -291,19 +292,21 @@ body::before {
 .search-card form {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1rem;
 }
 
 .search-card input,
 .search-card select {
-    padding: 1rem 1.25rem;
+    padding: 0.8rem 1rem;
     border: 2px solid #e8ecf4;
     border-radius: 16px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
     font-weight: 500;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .search-card input:focus,
@@ -319,14 +322,15 @@ body::before {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    padding: 1rem 1.5rem;
+    padding: 0.8rem 1.2rem;
     border-radius: 16px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-weight: 600;
     position: relative;
     overflow: hidden;
+    width: 100%;
 }
 
 .search-card button::before {
@@ -351,27 +355,30 @@ body::before {
 
 .filter-buttons {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
 }
 
 .filter-buttons select {
     flex: 1;
+    min-width: 120px;
 }
 
 /* Results */
 .result {
-    margin-top: 1.5rem;
-    padding: 1.5rem;
+    margin-top: 1rem;
+    padding: 1rem;
     border-radius: 16px;
-    min-height: 60px;
+    min-height: 50px;
     display: flex;
     align-items: center;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     line-height: 1.6;
     font-weight: 500;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    word-wrap: break-word;
 }
 
 .result.success {
@@ -396,12 +403,13 @@ body::before {
 .timetable-section {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
-    padding: 3rem;
+    padding: 2rem;
     border-radius: 24px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
     overflow: hidden;
+    margin-top: 2rem;
 }
 
 .timetable-section::before {
@@ -417,17 +425,17 @@ body::before {
 
 .timetable-section h2 {
     color: #667eea;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
     text-align: center;
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     font-weight: 700;
 }
 
 .section-description {
     text-align: center;
     color: #666;
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
     font-weight: 400;
 }
 
@@ -435,16 +443,16 @@ body::before {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    padding: 1rem 2rem;
+    padding: 0.8rem 1.5rem;
     border-radius: 50px;
     cursor: pointer;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     display: block;
     margin-left: auto;
     margin-right: auto;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1rem;
     position: relative;
     overflow: hidden;
 }
@@ -497,9 +505,10 @@ body::before {
 
 .timetable-table th,
 .timetable-table td {
-    padding: 1.25rem 1rem;
+    padding: 0.8rem 0.6rem;
     text-align: left;
     border-bottom: 1px solid #f0f4f8;
+    font-size: 0.85rem;
 }
 
 .timetable-table th {
@@ -508,7 +517,7 @@ body::before {
     color: #667eea;
     position: sticky;
     top: 0;
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -539,10 +548,10 @@ body::before {
 .admin-header {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
-    padding: 3rem;
+    padding: 2rem;
     border-radius: 24px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
@@ -562,26 +571,26 @@ body::before {
 
 .admin-header h1 {
     color: #667eea;
-    margin-bottom: 0.75rem;
-    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
     font-weight: 800;
 }
 
 .admin-header p {
     color: #666;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 400;
 }
 
 .admin-content {
     display: grid;
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
 .admin-section {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
-    padding: 3rem;
+    padding: 2rem;
     border-radius: 24px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -602,24 +611,24 @@ body::before {
 
 .admin-section h3 {
     color: #667eea;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: 700;
 }
 
 .admin-section h3 i {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     background: linear-gradient(135deg, #667eea, #764ba2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     padding: 0.5rem;
     background-color: rgba(102, 126, 234, 0.1);
     border-radius: 12px;
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -628,37 +637,39 @@ body::before {
 .admin-form {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem;
 }
 
 .form-group label {
     font-weight: 600;
     color: #333;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 .admin-form input,
 .admin-form select {
-    padding: 1rem 1.25rem;
+    padding: 0.8rem 1rem;
     border: 2px solid #e8ecf4;
     border-radius: 16px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
     font-weight: 500;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .admin-form input:focus,
@@ -674,18 +685,19 @@ body::before {
     background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
     color: white;
     border: none;
-    padding: 1rem 2rem;
+    padding: 0.8rem 1.5rem;
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
     position: relative;
     overflow: hidden;
+    width: 100%;
 }
 
 .submit-btn::before {
@@ -709,7 +721,7 @@ body::before {
 }
 
 .data-table {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 }
 
 .admin-table {
@@ -723,9 +735,10 @@ body::before {
 
 .admin-table th,
 .admin-table td {
-    padding: 1.25rem 1rem;
+    padding: 0.8rem 0.6rem;
     text-align: left;
     border-bottom: 1px solid #f0f4f8;
+    font-size: 0.85rem;
 }
 
 .admin-table th {
@@ -734,7 +747,7 @@ body::before {
     color: #667eea;
     position: sticky;
     top: 0;
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -745,21 +758,23 @@ body::before {
 
 .action-buttons {
     display: flex;
-    gap: 0.75rem;
+    gap: 0.5rem;
+    flex-wrap: wrap;
 }
 
 .edit-btn,
 .delete-btn {
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.8rem;
     border: none;
     border-radius: 25px;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.3rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-weight: 600;
+    white-space: nowrap;
 }
 
 .edit-btn {
@@ -782,10 +797,10 @@ body::before {
 .instructions-section {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
-    padding: 3rem;
+    padding: 2rem;
     border-radius: 24px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    margin-top: 4rem;
+    margin-top: 2rem;
     border: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
     overflow: hidden;
@@ -804,18 +819,18 @@ body::before {
 
 .instructions-section h2 {
     color: #667eea;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     text-align: center;
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    gap: 0.8rem;
 }
 
 .instructions-section h2 i {
-    font-size: 2rem;
+    font-size: 1.6rem;
     background: linear-gradient(135deg, #667eea, #764ba2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -823,13 +838,13 @@ body::before {
 
 .instructions-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
 }
 
 .instruction-card {
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 20px;
     border: 1px solid rgba(102, 126, 234, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -842,16 +857,16 @@ body::before {
 
 .instruction-card h3 {
     color: #667eea;
-    margin-bottom: 1rem;
-    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
     font-weight: 700;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.6rem;
 }
 
 .instruction-card h3 i {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     background: linear-gradient(135deg, #667eea, #764ba2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -863,12 +878,13 @@ body::before {
 }
 
 .instruction-card li {
-    margin-bottom: 0.75rem;
-    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    padding-left: 1.2rem;
     position: relative;
     color: #555;
     font-weight: 500;
     line-height: 1.6;
+    font-size: 0.9rem;
 }
 
 .instruction-card li:before {
@@ -877,10 +893,30 @@ body::before {
     left: 0;
     color: #667eea;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+    .search-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 992px) {
+    .search-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    
+    .hero-section h1 {
+        font-size: 3rem;
+    }
+    
+    .hero-section p {
+        font-size: 1.1rem;
+    }
+}
+
 @media (max-width: 768px) {
     .nav-container {
         padding: 0 1rem;
@@ -895,32 +931,53 @@ body::before {
     .hero-section h1 {
         font-size: 2.5rem;
     }
+    
+    .hero-section p {
+        font-size: 1rem;
+    }
 
     .search-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
     .form-row {
         grid-template-columns: 1fr;
+        gap: 0.8rem;
     }
 
     .filter-buttons {
         flex-direction: column;
+        gap: 0.5rem;
     }
 
     .action-buttons {
         flex-direction: column;
+        gap: 0.3rem;
     }
 
     .instructions-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
     }
 
     .search-card,
     .admin-section,
     .timetable-section,
     .instructions-section {
-        padding: 2rem;
+        padding: 1.5rem;
+    }
+    
+    .admin-header {
+        padding: 1.5rem;
+    }
+    
+    .timetable-table th,
+    .timetable-table td,
+    .admin-table th,
+    .admin-table td {
+        padding: 0.6rem 0.4rem;
+        font-size: 0.8rem;
     }
 }
 
@@ -929,19 +986,82 @@ body::before {
         font-size: 2rem;
     }
     
+    .hero-section p {
+        font-size: 0.9rem;
+    }
+    
     .search-card,
     .admin-section,
     .timetable-section,
     .instructions-section {
-        padding: 1.5rem;
+        padding: 1rem;
+    }
+    
+    .admin-header {
+        padding: 1rem;
+    }
+    
+    .search-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .card-description {
+        font-size: 0.8rem;
+    }
+    
+    .search-card input,
+    .search-card select,
+    .search-card button {
+        padding: 0.7rem 0.9rem;
+        font-size: 0.85rem;
     }
     
     .timetable-table th,
     .timetable-table td,
     .admin-table th,
     .admin-table td {
-        padding: 0.75rem 0.5rem;
-        font-size: 0.9rem;
+        padding: 0.5rem 0.3rem;
+        font-size: 0.75rem;
+    }
+    
+    .edit-btn,
+    .delete-btn {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.7rem;
+    }
+    
+    .instruction-card {
+        padding: 1rem;
+    }
+    
+    .instruction-card h3 {
+        font-size: 1rem;
+    }
+    
+    .instruction-card li {
+        font-size: 0.85rem;
+        margin-bottom: 0.4rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .main-content {
+        padding: 0.5rem;
+    }
+    
+    .search-card,
+    .admin-section,
+    .timetable-section,
+    .instructions-section {
+        padding: 0.8rem;
+    }
+    
+    .hero-section h1 {
+        font-size: 1.8rem;
+    }
+    
+    .nav-brand {
+        font-size: 1.5rem;
     }
 }
 
@@ -979,7 +1099,7 @@ html {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 
 ::-webkit-scrollbar-track {
