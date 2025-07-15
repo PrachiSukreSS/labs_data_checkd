@@ -8,6 +8,19 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Floating particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-brand">
@@ -29,8 +42,8 @@
         <!-- Home Page -->
         <div id="homePage" class="page active">
             <div class="hero-section">
-                <h1>Lab & Classroom Availability</h1>
-                <p>Check real-time availability of labs and classrooms for your events</p>
+                <h1>🎓 Lab & Classroom Hub</h1>
+                <p>Your smart companion for checking real-time availability of labs and classrooms</p>
                 <div class="instructions">
                     <h3>How to Use:</h3>
                     <ul>
@@ -122,24 +135,86 @@
 
             <!-- Timetable Display -->
             <div class="timetable-section">
-                <h2>Complete Lab Schedule</h2>
+                <h2>📅 Complete Lab Schedule</h2>
                 <p class="section-description">View the complete timetable for all labs and classrooms</p>
                 <button id="loadTimetable" class="load-btn">Load Full Timetable</button>
                 <div id="timetableContainer" class="timetable-container"></div>
+            </div>
+
+            <!-- Instructions Section -->
+            <div class="instructions-section">
+                <h2><i class="fas fa-info-circle"></i> How to Use This System</h2>
+                <div class="instructions-grid">
+                    <div class="instruction-card">
+                        <h3><i class="fas fa-search"></i> Check Availability</h3>
+                        <ul>
+                            <li>Select your desired location from the dropdown</li>
+                            <li>Choose the day of the week</li>
+                            <li>Pick a time slot (Slot 1, Slot 2, or Slot 3)</li>
+                            <li>Click "Check Availability" to see if it's free</li>
+                            <li>Green result = Available, Red result = Occupied</li>
+                        </ul>
+                    </div>
+                    <div class="instruction-card">
+                        <h3><i class="fas fa-users"></i> Find by Capacity</h3>
+                        <ul>
+                            <li>Enter the minimum number of students</li>
+                            <li>System will show all labs that can accommodate</li>
+                            <li>Results are sorted alphabetically</li>
+                            <li>Use this for planning large events or classes</li>
+                        </ul>
+                    </div>
+                    <div class="instruction-card">
+                        <h3><i class="fas fa-user-tie"></i> Faculty Schedule</h3>
+                        <ul>
+                            <li>Type the exact faculty name</li>
+                            <li>View their complete weekly schedule</li>
+                            <li>See which labs they're assigned to</li>
+                            <li>Check their batch assignments</li>
+                        </ul>
+                    </div>
+                    <div class="instruction-card">
+                        <h3><i class="fas fa-filter"></i> Smart Filters</h3>
+                        <ul>
+                            <li>Filter by specific day to see all scheduled labs</li>
+                            <li>Filter by time slot to find available periods</li>
+                            <li>Combine with other searches for better results</li>
+                            <li>Perfect for finding alternative options</li>
+                        </ul>
+                    </div>
+                    <div class="instruction-card">
+                        <h3><i class="fas fa-table"></i> Full Timetable</h3>
+                        <ul>
+                            <li>Click "Load Full Timetable" to see everything</li>
+                            <li>Scroll horizontally on mobile devices</li>
+                            <li>Green status = Available, Red status = Occupied</li>
+                            <li>Use for comprehensive planning</li>
+                        </ul>
+                    </div>
+                    <div class="instruction-card">
+                        <h3><i class="fas fa-cog"></i> Data Management</h3>
+                        <ul>
+                            <li>Click "Manage Data" to add/edit entries</li>
+                            <li>Fill all required fields when adding</li>
+                            <li>Use "Free" as faculty name for available slots</li>
+                            <li>Edit or delete existing entries as needed</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Admin/Manage Data Page -->
         <div id="adminPage" class="page">
             <div class="admin-header">
-                <h1>Manage Lab Schedule Data</h1>
+                <h1>🔧 Manage Lab Schedule Data</h1>
                 <p>Add, edit, or delete lab schedule entries</p>
             </div>
 
             <div class="admin-content">
                 <!-- Add New Entry -->
                 <div class="admin-section">
-                    <h3><i class="fas fa-plus-circle"></i> Add New Schedule Entry</h3>
+                    <h3><i class="fas fa-plus-circle"></i> Add New Entry</h3>
                     <p class="section-description">Add a new lab/classroom schedule entry to the system</p>
                     <form id="addEntryForm" class="admin-form">
                         <div class="form-row">
@@ -193,7 +268,7 @@
 
                 <!-- Manage Existing Data -->
                 <div class="admin-section">
-                    <h3><i class="fas fa-table"></i> Manage Existing Data</h3>
+                    <h3><i class="fas fa-database"></i> Existing Data</h3>
                     <p class="section-description">View, edit, or delete existing schedule entries</p>
                     <button id="loadDataBtn" class="load-btn">Load All Data</button>
                     <div id="dataTable" class="data-table"></div>
