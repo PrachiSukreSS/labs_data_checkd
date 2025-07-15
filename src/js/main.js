@@ -40,7 +40,7 @@ async function loadLocations() {
         });
     } catch (error) {
         console.error('Error loading locations:', error);
-        showResult('availabilityResult', 'Error loading locations', 'error');
+        showResult('availabilityResult', 'Error loading locations. Please check your connection.', 'error');
     }
 }
 
@@ -75,7 +75,7 @@ async function handleAvailabilityCheck(e) {
     const timeSlot = document.getElementById('timeSlotSelect').value;
     
     if (!location || !day || !timeSlot) {
-        showResult('availabilityResult', 'Please fill all fields', 'error');
+        showResult('availabilityResult', 'Please fill all fields to check availability', 'error');
         return;
     }
     
@@ -84,18 +84,24 @@ async function handleAvailabilityCheck(e) {
         const result = await dbOperations.checkAvailability(location, day, timeSlot);
         
         if (result.length === 0) {
-            showResult('availabilityResult', `No information available for ${location} at ${timeSlot} on ${day}`, 'error');
+            showResult('availabilityResult', `No schedule information found for ${location} on ${day} during ${timeSlot}`, 'error');
         } else {
             const entry = result[0];
             if (entry.faculty === 'Free') {
-                showResult('availabilityResult', `${location} is available at ${timeSlot} on ${day}`, 'success');
+                showResult('availabilityResult', 
+                    `✅ ${location} is AVAILABLE on ${day} during ${timeSlot}<br>
+                    <strong>Capacity:</strong> ${entry.capacity} students`, 'success');
             } else {
-                showResult('availabilityResult', `${location} is occupied by ${entry.faculty} (Batch: ${entry.batch || 'N/A'}) at ${timeSlot} on ${day}`, 'error');
+                const batchInfo = entry.batch ? ` (Batch: ${entry.batch})` : '';
+                showResult('availabilityResult', 
+                    `❌ ${location} is OCCUPIED on ${day} during ${timeSlot}<br>
+                    <strong>Faculty:</strong> ${entry.faculty}${batchInfo}<br>
+                    <strong>Capacity:</strong> ${entry.capacity} students`, 'error');
             }
         }
     } catch (error) {
         console.error('Error checking availability:', error);
-        showResult('availabilityResult', 'Error checking availability', 'error');
+        showResult('availabilityResult', 'Error checking availability. Please try again.', 'error');
     }
 }
 
@@ -106,7 +112,7 @@ async function handleCapacitySearch(e) {
     const capacity = parseInt(document.getElementById('capacityInput').value);
     
     if (!capacity || capacity < 1) {
-        showResult('capacityResult', 'Please enter a valid capacity', 'error');
+        showResult('capacityResult', 'Please enter a valid capacity number', 'error');
         return;
     }
     
@@ -115,13 +121,15 @@ async function handleCapacitySearch(e) {
         const locations = await dbOperations.findByCapacity(capacity);
         
         if (locations.length === 0) {
-            showResult('capacityResult', 'No locations found with the required capacity', 'error');
+            showResult('capacityResult', `No locations found with capacity ≥ ${capacity} students`, 'error');
         } else {
-            showResult('capacityResult', `Locations with capacity ≥ ${capacity}: ${locations.join(', ')}`, 'success');
+            showResult('capacityResult', 
+                `<strong>Locations with capacity ≥ ${capacity} students:</strong><br>
+                ${locations.map(loc => `• ${loc}`).join('<br>')}`, 'success');
         }
     } catch (error) {
         console.error('Error searching by capacity:', error);
-        showResult('capacityResult', 'Error searching by capacity', 'error');
+        showResult('capacityResult', 'Error searching by capacity. Please try again.', 'error');
     }
 }
 
@@ -141,19 +149,18 @@ async function handleFacultySearch(e) {
         const results = await dbOperations.searchByFaculty(faculty);
         
         if (results.length === 0) {
-            showResult('facultyResult', `No locations found for faculty: ${faculty}`, 'error');
+            showResult('facultyResult', `No schedule found for faculty: ${faculty}`, 'error');
         } else {
-            let resultText = `Schedule for ${faculty}:<br>`;
+            let resultText = `<strong>Schedule for ${faculty}:</strong><br><br>`;
             results.forEach(entry => {
-                resultText += `${entry.location} - ${entry.day} ${entry.time_slot}`;
-                if (entry.batch) resultText += ` (Batch: ${entry.batch})`;
-                resultText += '<br>';
+                const batchInfo = entry.batch ? ` (${entry.batch})` : '';
+                resultText += `📍 ${entry.location} - ${entry.day}, ${entry.time_slot}${batchInfo}<br>`;
             });
             showResult('facultyResult', resultText, 'success');
         }
     } catch (error) {
         console.error('Error searching by faculty:', error);
-        showResult('facultyResult', 'Error searching by faculty', 'error');
+        showResult('facultyResult', 'Error searching by faculty. Please try again.', 'error');
     }
 }
 
@@ -171,13 +178,15 @@ async function handleDayFilter(e) {
         const locations = await dbOperations.filterByDay(day);
         
         if (locations.length === 0) {
-            showResult('filterResult', `No locations available on ${day}`, 'error');
+            showResult('filterResult', `No locations scheduled on ${day}`, 'error');
         } else {
-            showResult('filterResult', `Locations available on ${day}: ${locations.join(', ')}`, 'success');
+            showResult('filterResult', 
+                `<strong>Locations scheduled on ${day}:</strong><br>
+                ${locations.map(loc => `• ${loc}`).join('<br>')}`, 'success');
         }
     } catch (error) {
         console.error('Error filtering by day:', error);
-        showResult('filterResult', 'Error filtering by day', 'error');
+        showResult('filterResult', 'Error filtering by day. Please try again.', 'error');
     }
 }
 
@@ -195,13 +204,15 @@ async function handleTimeFilter(e) {
         const locations = await dbOperations.filterByTime(timeSlot);
         
         if (locations.length === 0) {
-            showResult('filterResult', `No locations available during ${timeSlot}`, 'error');
+            showResult('filterResult', `No locations scheduled during ${timeSlot}`, 'error');
         } else {
-            showResult('filterResult', `Locations available during ${timeSlot}: ${locations.join(', ')}`, 'success');
+            showResult('filterResult', 
+                `<strong>Locations scheduled during ${timeSlot}:</strong><br>
+                ${locations.map(loc => `• ${loc}`).join('<br>')}`, 'success');
         }
     } catch (error) {
         console.error('Error filtering by time:', error);
-        showResult('filterResult', 'Error filtering by time', 'error');
+        showResult('filterResult', 'Error filtering by time. Please try again.', 'error');
     }
 }
 
@@ -219,7 +230,7 @@ async function loadFullTimetable() {
         button.disabled = false;
     } catch (error) {
         console.error('Error loading timetable:', error);
-        document.getElementById('timetableContainer').innerHTML = '<p class="error">Error loading timetable</p>';
+        document.getElementById('timetableContainer').innerHTML = '<p class="error">Error loading timetable. Please try again.</p>';
         
         const button = document.getElementById('loadTimetable');
         button.innerHTML = 'Load Full Timetable';
@@ -232,24 +243,25 @@ function displayTimetable(data) {
     const container = document.getElementById('timetableContainer');
     
     if (data.length === 0) {
-        container.innerHTML = '<p>No data available</p>';
+        container.innerHTML = '<p>No schedule data available</p>';
         return;
     }
     
     let html = `
-        <table class="timetable-table">
-            <thead>
-                <tr>
-                    <th>Location</th>
-                    <th>Day</th>
-                    <th>Time Slot</th>
-                    <th>Faculty</th>
-                    <th>Batch</th>
-                    <th>Capacity</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="table-responsive">
+            <table class="timetable-table">
+                <thead>
+                    <tr>
+                        <th>Location</th>
+                        <th>Day</th>
+                        <th>Time Slot</th>
+                        <th>Faculty</th>
+                        <th>Batch</th>
+                        <th>Capacity</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
     `;
     
     data.forEach(entry => {
@@ -258,7 +270,7 @@ function displayTimetable(data) {
         
         html += `
             <tr>
-                <td>${entry.location}</td>
+                <td><strong>${entry.location}</strong></td>
                 <td>${entry.day}</td>
                 <td>${entry.time_slot}</td>
                 <td>${entry.faculty}</td>
@@ -269,7 +281,7 @@ function displayTimetable(data) {
         `;
     });
     
-    html += '</tbody></table>';
+    html += '</tbody></table></div>';
     container.innerHTML = html;
 }
 
@@ -288,26 +300,6 @@ function showLoading(elementId) {
 
 // Admin functionality
 function setupAdminListeners() {
-    const adminPassword = 'admin123'; // Change this to a secure password
-    
-    document.getElementById('loginBtn').addEventListener('click', () => {
-        const password = document.getElementById('adminPassword').value;
-        if (password === adminPassword) {
-            document.getElementById('adminAuth').style.display = 'none';
-            document.getElementById('adminControls').style.display = 'block';
-            document.getElementById('adminContent').style.display = 'block';
-        } else {
-            alert('Invalid password');
-        }
-    });
-    
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-        document.getElementById('adminAuth').style.display = 'flex';
-        document.getElementById('adminControls').style.display = 'none';
-        document.getElementById('adminContent').style.display = 'none';
-        document.getElementById('adminPassword').value = '';
-    });
-    
     document.getElementById('addEntryForm').addEventListener('submit', handleAddEntry);
     document.getElementById('loadDataBtn').addEventListener('click', loadAdminData);
 }
@@ -317,23 +309,29 @@ async function handleAddEntry(e) {
     e.preventDefault();
     
     const entry = {
-        location: document.getElementById('addLocation').value,
+        location: document.getElementById('addLocation').value.trim(),
         day: document.getElementById('addDay').value,
         time_slot: document.getElementById('addTimeSlot').value,
-        faculty: document.getElementById('addFaculty').value,
-        batch: document.getElementById('addBatch').value || null,
+        faculty: document.getElementById('addFaculty').value.trim(),
+        batch: document.getElementById('addBatch').value.trim() || null,
         capacity: parseInt(document.getElementById('addCapacity').value)
     };
     
+    // Validation
+    if (!entry.location || !entry.day || !entry.time_slot || !entry.faculty || !entry.capacity) {
+        alert('Please fill all required fields');
+        return;
+    }
+    
     try {
         await dbOperations.addEntry(entry);
-        alert('Entry added successfully');
+        alert('Schedule entry added successfully!');
         document.getElementById('addEntryForm').reset();
         await loadLocations(); // Refresh locations dropdown
         await loadAdminData(); // Refresh admin data table
     } catch (error) {
         console.error('Error adding entry:', error);
-        alert('Error adding entry');
+        alert('Error adding entry. Please try again.');
     }
 }
 
@@ -351,7 +349,7 @@ async function loadAdminData() {
         button.disabled = false;
     } catch (error) {
         console.error('Error loading admin data:', error);
-        document.getElementById('dataTable').innerHTML = '<p class="error">Error loading data</p>';
+        document.getElementById('dataTable').innerHTML = '<p class="error">Error loading data. Please try again.</p>';
         
         const button = document.getElementById('loadDataBtn');
         button.innerHTML = 'Load All Data';
@@ -364,74 +362,83 @@ function displayAdminData(data) {
     const container = document.getElementById('dataTable');
     
     if (data.length === 0) {
-        container.innerHTML = '<p>No data available</p>';
+        container.innerHTML = '<p>No schedule data available</p>';
         return;
     }
     
     let html = `
-        <table>
-            <thead>
-                <tr>
-                    <th>Location</th>
-                    <th>Day</th>
-                    <th>Time Slot</th>
-                    <th>Faculty</th>
-                    <th>Batch</th>
-                    <th>Capacity</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="table-responsive">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Location</th>
+                        <th>Day</th>
+                        <th>Time Slot</th>
+                        <th>Faculty</th>
+                        <th>Batch</th>
+                        <th>Capacity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
     `;
     
     data.forEach(entry => {
         html += `
             <tr>
-                <td>${entry.location}</td>
+                <td><strong>${entry.location}</strong></td>
                 <td>${entry.day}</td>
                 <td>${entry.time_slot}</td>
                 <td>${entry.faculty}</td>
                 <td>${entry.batch || '-'}</td>
                 <td>${entry.capacity}</td>
-                <td>
-                    <button class="edit-btn" onclick="editEntry(${entry.id})">Edit</button>
-                    <button class="delete-btn" onclick="deleteEntry(${entry.id})">Delete</button>
+                <td class="action-buttons">
+                    <button class="edit-btn" onclick="editEntry('${entry.id}', '${entry.faculty}', '${entry.batch || ''}')">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button class="delete-btn" onclick="deleteEntry('${entry.id}', '${entry.location}', '${entry.day}', '${entry.time_slot}')">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
                 </td>
             </tr>
         `;
     });
     
-    html += '</tbody></table>';
+    html += '</tbody></table></div>';
     container.innerHTML = html;
 }
 
 // Global functions for admin actions
-window.editEntry = async function(id) {
-    // Simple edit functionality - you can enhance this with a modal
-    const newFaculty = prompt('Enter new faculty name:');
-    if (newFaculty !== null) {
+window.editEntry = async function(id, currentFaculty, currentBatch) {
+    const newFaculty = prompt('Enter new faculty name:', currentFaculty);
+    if (newFaculty !== null && newFaculty.trim() !== '') {
+        const newBatch = prompt('Enter batch (optional):', currentBatch);
         try {
-            await dbOperations.updateEntry(id, { faculty: newFaculty });
-            alert('Entry updated successfully');
+            const updateData = { 
+                faculty: newFaculty.trim(),
+                batch: newBatch && newBatch.trim() ? newBatch.trim() : null
+            };
+            await dbOperations.updateEntry(id, updateData);
+            alert('Entry updated successfully!');
             await loadAdminData();
             await loadLocations();
         } catch (error) {
             console.error('Error updating entry:', error);
-            alert('Error updating entry');
+            alert('Error updating entry. Please try again.');
         }
     }
 };
 
-window.deleteEntry = async function(id) {
-    if (confirm('Are you sure you want to delete this entry?')) {
+window.deleteEntry = async function(id, location, day, timeSlot) {
+    if (confirm(`Are you sure you want to delete this entry?\n\nLocation: ${location}\nDay: ${day}\nTime: ${timeSlot}`)) {
         try {
             await dbOperations.deleteEntry(id);
-            alert('Entry deleted successfully');
+            alert('Entry deleted successfully!');
             await loadAdminData();
             await loadLocations();
         } catch (error) {
             console.error('Error deleting entry:', error);
-            alert('Error deleting entry');
+            alert('Error deleting entry. Please try again.');
         }
     }
 };

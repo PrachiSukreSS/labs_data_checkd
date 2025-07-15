@@ -13,7 +13,9 @@ export const dbOperations = {
         const { data, error } = await supabase
             .from('lab_schedule')
             .select('*')
-            .order('location', { ascending: true });
+            .order('location', { ascending: true })
+            .order('day', { ascending: true })
+            .order('time_slot', { ascending: true });
         
         if (error) throw error;
         return data;
@@ -61,7 +63,8 @@ export const dbOperations = {
             .from('lab_schedule')
             .select('*')
             .eq('faculty', facultyName)
-            .order('day', { ascending: true });
+            .order('day', { ascending: true })
+            .order('time_slot', { ascending: true });
         
         if (error) throw error;
         return data;
